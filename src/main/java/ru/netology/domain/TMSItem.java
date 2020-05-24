@@ -2,6 +2,7 @@ package ru.netology.domain;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.TreeSet;
 
 public class TMSItem {
@@ -70,12 +71,25 @@ public class TMSItem {
         return title;
     }
 
-    public void closeItem() {
-        isOpen = false;
+    public void close() {
+        isOpen  = false;
+        updated = LocalDateTime.now();
+        comments.add("Automatic message: Issue is closed");
+    }
+
+    public void reOpen() {
+        isOpen  = true;
+        updated = LocalDateTime.now();
+        comments.add("Automatic message: Issue is reopened");
     }
 
     public void addComment(String s) {
         comments.add(s);
+        updated = LocalDateTime.now();
     }
 
+    public void addTag(String tag) {
+        tags.add(tag);
+        updated = LocalDateTime.now();
+    }
 }

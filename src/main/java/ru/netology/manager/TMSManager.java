@@ -1,9 +1,11 @@
 package ru.netology.manager;
 
 import ru.netology.domain.TMSItem;
+import ru.netology.domain.TMSItemByAuthorComparator;
+import ru.netology.domain.TMSItemByIdComparator;
 import ru.netology.repository.TMSRepository;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class TMSManager {
 
@@ -26,33 +28,101 @@ public class TMSManager {
         return  this.repository.add(item);
     }
 
-    public ArrayList<TMSItem> getOpenItems() {
+    public List<TMSItem> getOpenItems() {
+        List<TMSItem> result = new ArrayList<>();
+        List<TMSItem> items  = repository.getAll();
+
+        for(TMSItem item: items) {
+            if (item.isOpen() == true) {
+                result.add(item);
+            }
+        }
+
+        return result;
+    }
+
+    public List<TMSItem> getClosedItems() {
+        List<TMSItem> result = new ArrayList<>();
+        List<TMSItem> items  = repository.getAll();
+
+        for(TMSItem item: items) {
+            if (item.isOpen() == false) {
+                result.add(item);
+            }
+        }
+
+        return result;
+    }
+
+    public List<TMSItem> getItemsByAuthor(String author) {
+
+        List<TMSItem> result = new ArrayList<>();
+        List<TMSItem> items  = repository.getAll();
+
+        for(TMSItem item: items) {
+            if (item.getAuthor() == author) {
+                result.add(item);
+            }
+        }
+
+        TMSItemByAuthorComparator comparator = new TMSItemByAuthorComparator();
+        Collections.sort(result, comparator);
+
+        return result;
+    }
+
+    public List<TMSItem> getItemsByAssignee(String assignee) {
+        List<TMSItem> result = new ArrayList<>();
+        List<TMSItem> items  = repository.getAll();
+
+        for(TMSItem item: items) {
+            for(String s : item.getAssignees())
+                if (s == assignee) {
+                    result.add(item);
+                }
+        }
+
+        TMSItemByIdComparator comparator = new TMSItemByIdComparator();
+        Collections.sort(result, comparator);
+
+        return result;
 
     }
 
-    public ArrayList<TMSItem> getClosedItems() {
+    public List<TMSItem> getItemsByTag(String tag) {
+        List<TMSItem> result = new ArrayList<>();
+        List<TMSItem> items  = repository.getAll();
 
+        for(TMSItem item: items) {
+            for(String s : item.getTags())
+                if (s == tag) {
+                    result.add(item);
+                }
+        }
+
+        TMSItemByIdComparator comparator = new TMSItemByIdComparator();
+        Collections.sort(result, comparator);
+
+        return result;
     }
 
-    public ArrayList<TMSItem> getItemsByAuthor(String author) {
+    public boolean clodeById(int id) {
+        TMSItem item = repository.getById(id);
+        if (item != null) {
+            item.close();
+            return true;
+        }
 
+        return false;
     }
 
-    public ArrayList<TMSItem> getItemsByAssignee(String assignee) {
+    public boolean reOpenById(int id) {
+        TMSItem item = repository.getById(id);
+        if (item != null) {
+            item.reOpen();
+            return true;
+        }
 
+        return false;
     }
-
-    public ArrayList<TMSItem> getItemsByTag(String tag) {
-
-    }
-
-    public TMSItem clodeById(int id) {
-
-    }
-
-    public TMSItem reOpenById(int id) {
-
-    }
-
-
 }
