@@ -38,6 +38,9 @@ public class TMSManager {
             }
         }
 
+        TMSItemByIdComparator comparator = new TMSItemByIdComparator();
+        Collections.sort(result, comparator);
+
         return result;
     }
 
@@ -50,6 +53,9 @@ public class TMSManager {
                 result.add(item);
             }
         }
+
+        TMSItemByIdComparator comparator = new TMSItemByIdComparator();
+        Collections.sort(result, comparator);
 
         return result;
     }
@@ -100,7 +106,7 @@ public class TMSManager {
                 }
         }
 
-        TMSItemByIdComparator comparator = new TMSItemByIdComparator();
+        TMSItemByAuthorComparator comparator = new TMSItemByAuthorComparator();
         Collections.sort(result, comparator);
 
         return result;

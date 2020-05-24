@@ -31,7 +31,7 @@ class TMSManagerTest {
             new ArrayList<String>(Collections.singleton("Something wrong with ver 20.1")));
 
     private TMSItem third  = new TMSItem(3,
-            "Viktor Ivanov",
+            "Dmitry Dubinin",
             "Issue with build on Mac OS",
             new TreeSet<String>(Collections.singleton("release 20.1")),
             new TreeSet<String>(Collections.singleton("Ilya Grigoriev")),
@@ -60,7 +60,6 @@ class TMSManagerTest {
     void shouldGetItemsByAuthor() {
         List<TMSItem> expected = new ArrayList<TMSItem>();
         expected.add(second);
-        expected.add(third);
 
         List<TMSItem> actual = manager.getItemsByAuthor("Viktor Ivanov");
 
@@ -81,9 +80,9 @@ class TMSManagerTest {
     @Test
     void shouldGetItemsByTag() {
         List<TMSItem> expected = new ArrayList<TMSItem>();
-        expected.add(second);
         expected.add(third);
         expected.add(fourth);
+        expected.add(second);
 
         List<TMSItem> actual = manager.getItemsByTag("release 20.1");
 
