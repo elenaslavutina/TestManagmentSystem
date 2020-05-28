@@ -66,6 +66,16 @@ class TMSManagerTest {
         assertEquals(expected, actual);
     }
 
+
+    @Test
+    void shouldNotGetItemsByAuthorIfAuthorNotExist() {
+        List<TMSItem> expected = new ArrayList<TMSItem>();
+
+        List<TMSItem> actual = manager.getItemsByAuthor("Empty Empty");
+
+        assertEquals(expected, actual);
+    }
+
     @Test
     void shouldGetItemsByAssignee() {
         List<TMSItem> expected = new ArrayList<TMSItem>();
@@ -78,6 +88,14 @@ class TMSManagerTest {
     }
 
     @Test
+    void shouldNotGetItemsByAssigneeIfItNotExist() {
+        List<TMSItem> expected = new ArrayList<TMSItem>();
+        List<TMSItem> actual = manager.getItemsByAssignee("Petya Pupkin");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void shouldGetItemsByTag() {
         List<TMSItem> expected = new ArrayList<TMSItem>();
         expected.add(third);
@@ -85,6 +103,14 @@ class TMSManagerTest {
         expected.add(second);
 
         List<TMSItem> actual = manager.getItemsByTag("release 20.1");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void shouldNotGetItemsByTagIfItNotExist() {
+        List<TMSItem> expected = new ArrayList<TMSItem>();
+        List<TMSItem> actual = manager.getItemsByTag("release 20.2020");
 
         assertEquals(expected, actual);
     }

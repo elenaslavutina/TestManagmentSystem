@@ -40,4 +40,18 @@ public class TMSRepository {
         item.addComment(comment);
     }
 
+
+    public void clodeById(int id) {
+        TMSItem item = getById(id);
+        if (item != null) {
+            item.close();
+        }
+    }
+
+    public void reOpenById(int id) {
+        TMSItem item = getById(id);
+        if (item != null) {
+            item.reOpen();
+        }
+    }
 }

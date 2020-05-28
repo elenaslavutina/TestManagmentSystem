@@ -30,21 +30,22 @@ class TMSRepositoryTest {
         repository.add(first);
     }
 
+
     @Test
     void shouldAddCommentById() {
-        TMSItem item    = repository.getById(1);
-        String expected = "Additional comment";
+        TMSItem item = repository.getById(1);
+        assertEquals(first, item);
+    }
+    @Test
+    void shouldCloseIssueById(){
 
-        item.addComment(expected);
 
-        item = repository.getById(1);
+    }
 
-        ArrayList<String> comments = item.getComments();
+    @Test
+    void shouldOpenIssueById(){
 
-        int       idx = comments.size() - 1;
-        String actual = comments.get(idx);
 
-        assertEquals(expected, actual);
     }
 
 }

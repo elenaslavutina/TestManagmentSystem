@@ -7,9 +7,11 @@ import ru.netology.repository.TMSRepository;
 
 import java.util.*;
 
+import static java.util.Collections.sort;
+
 public class TMSManager {
 
-    private TMSRepository repository = new TMSRepository();
+    private TMSRepository repository;
     public TMSManager(TMSRepository repository) {
         this.repository = repository;
     }
@@ -25,7 +27,7 @@ public class TMSManager {
     Закрытие/открытие Issue по id (фактически, это и есть update)*/
 
     public boolean add(TMSItem item){
-        return  this.repository.add(item);
+        return  repository.add(item);
     }
 
     public List<TMSItem> getOpenItems() {
@@ -33,13 +35,13 @@ public class TMSManager {
         List<TMSItem> items  = repository.getAll();
 
         for(TMSItem item: items) {
-            if (item.isOpen() == true) {
+            if (item.isOpen()) {
                 result.add(item);
             }
         }
 
         TMSItemByIdComparator comparator = new TMSItemByIdComparator();
-        Collections.sort(result, comparator);
+        sort(result, comparator);
 
         return result;
     }
@@ -49,13 +51,13 @@ public class TMSManager {
         List<TMSItem> items  = repository.getAll();
 
         for(TMSItem item: items) {
-            if (item.isOpen() == false) {
+            if (!item.isOpen()) {
                 result.add(item);
             }
         }
 
         TMSItemByIdComparator comparator = new TMSItemByIdComparator();
-        Collections.sort(result, comparator);
+        sort(result, comparator);
 
         return result;
     }
@@ -66,13 +68,13 @@ public class TMSManager {
         List<TMSItem> items  = repository.getAll();
 
         for(TMSItem item: items) {
-            if (item.getAuthor() == author) {
+            if (item.getAuthor().equals(author)) {
                 result.add(item);
             }
         }
 
         TMSItemByAuthorComparator comparator = new TMSItemByAuthorComparator();
-        Collections.sort(result, comparator);
+        sort(result, comparator);
 
         return result;
     }
@@ -83,13 +85,13 @@ public class TMSManager {
 
         for(TMSItem item: items) {
             for(String s : item.getAssignees())
-                if (s == assignee) {
+                if (s.equals(assignee)) {
                     result.add(item);
                 }
         }
 
         TMSItemByIdComparator comparator = new TMSItemByIdComparator();
-        Collections.sort(result, comparator);
+        sort(result, comparator);
 
         return result;
 
@@ -101,34 +103,15 @@ public class TMSManager {
 
         for(TMSItem item: items) {
             for(String s : item.getTags())
-                if (s == tag) {
+                if (s.equals(tag)) {
                     result.add(item);
                 }
         }
 
         TMSItemByAuthorComparator comparator = new TMSItemByAuthorComparator();
-        Collections.sort(result, comparator);
+        sort(result, comparator);
 
         return result;
     }
 
-    public boolean clodeById(int id) {
-        TMSItem item = repository.getById(id);
-        if (item != null) {
-            item.close();
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean reOpenById(int id) {
-        TMSItem item = repository.getById(id);
-        if (item != null) {
-            item.reOpen();
-            return true;
-        }
-
-        return false;
-    }
 }

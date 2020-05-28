@@ -7,18 +7,18 @@ import java.util.TreeSet;
 
 public class TMSItem {
 
-    int              id;
-    String           author;
-    String           title;
+    private int     id;
+    private String  author;
+    private String  title;
 
-    TreeSet<String>  tags;
-    TreeSet<String>  assignees;
-    LocalDateTime    created;
-    LocalDateTime    updated;
+    private TreeSet<String>  tags;
+    private TreeSet<String>  assignees;
+    private LocalDateTime    created;
+    private LocalDateTime    updated;
 
-    ArrayList<String> comments;
+    private  ArrayList<String> comments;
 
-    boolean          isOpen;
+    private  boolean isOpen;
 
     public TMSItem(int id, String author, String title,
                    TreeSet<String> tags, TreeSet<String> assignees,
