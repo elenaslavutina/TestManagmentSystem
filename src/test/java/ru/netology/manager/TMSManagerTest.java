@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import ru.netology.service.TMSPredicate;
 class TMSManagerTest {
     private TMSRepository repository;
     private TMSManager    manager;
@@ -60,9 +60,8 @@ class TMSManagerTest {
     void shouldGetItemsByAuthor() {
         List<TMSItem> expected = new ArrayList<TMSItem>();
         expected.add(second);
-
-        List<TMSItem> actual = manager.getItemsByAuthor("Viktor Ivanov");
-
+        TMSPredicate predicate = new TMSPredicate(manager);
+        List<TMSItem> actual = predicate.predicateByAutor("Viktor Ivanov");
         assertEquals(expected, actual);
     }
 
