@@ -24,7 +24,7 @@ public class TMSRepository {
         return this.items.add(item);
     }
 
-    public boolean remove(TMSItem item) {
+/*   public boolean remove(TMSItem item) {
         return this.items.remove(item);
     }
     public boolean addAll(Collection<? extends TMSItem> items) {
@@ -34,7 +34,7 @@ public class TMSRepository {
     public boolean removeAll(Collection<? extends TMSItem> items) {
         return this.items.removeAll(items);
     }
-
+*/
     public void updateById(int id, String comment) {
         TMSItem item = getById(id);
         item.addComment(comment);
