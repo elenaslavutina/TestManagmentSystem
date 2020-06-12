@@ -60,14 +60,21 @@ class TMSRepositoryTest {
 
     @Test
     void shouldCloseIssueById() {
+        repository.clodeById(1);
+        TMSItem item = repository.getById(1);
+        boolean state = item.isOpen();
 
+        assertEquals(state, false);
 
     }
 
     @Test
     void shouldOpenIssueById() {
+        TMSItem item = repository.getById(1);
+        item.reOpen();
 
+        boolean state = item.isOpen();
 
+        assertEquals(state, true);
     }
-
 }
